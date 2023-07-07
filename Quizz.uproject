@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.23",
+	"EngineAssociation": "{34A083D8-4550-E008-B73F-E19C577FB1CA}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -9,17 +9,11 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"Engine",
-				"UMG"
+				"Engine"
 			]
 		}
 	],
 	"Plugins": [
-		{
-			"Name": "VaRestPlugin",
-			"Enabled": true,
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/e47be161e7a24e928560290abd5dcc4f"
-		},
 		{
 			"Name": "WebBrowserWidget",
 			"Enabled": true
@@ -28,5 +22,12 @@
 			"Name": "WebBrowserNativeProxy",
 			"Enabled": true
 		}
+	],
+	"TargetPlatforms": [
+		"Android",
+		"IOS",
+		"Linux",
+		"Mac",
+		"Windows"
 	]
 }

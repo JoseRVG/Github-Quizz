@@ -1,8 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #include "GameDataProcessing.h"
 
-void UGameDataProcessing::ProcessActivity(const TArray<FActivity> Activities, const int32 ActivityID, FString &Questions, FString &FirstQuestion, FString &ActivityName)
+void UGameDataProcessing::ProcessActivity(const TArray<FActivity> Activities, const int32 ActivityID, FString& Questions, FString& FirstQuestion, FString& ActivityName)
 {
 	for (int32 i = 0; i < Activities.Num(); i++) {
 		if (Activities[i].id == ActivityID) {
@@ -17,19 +18,17 @@ TArray<FQuestion> UGameDataProcessing::ProcessQuizz(TArray<FString> Questions)
 {
 	TArray<FQuestion> Question;
 	int32 i = 0;
-	while (i < Questions.Num()-1) {
+	while (i < Questions.Num() - 1) {
 		FQuestion TempQuestion;
 		TempQuestion.id = Questions[i];
 		if (i < Questions.Num() - 1) {
-			i++; 
-			
+			i++;
 		}
 		else {
 			break;
 		}
 		TempQuestion.question = Questions[i];
 		if (i < Questions.Num() - 1) {
-			
 			i++;
 		}
 		else {
@@ -42,15 +41,19 @@ TArray<FQuestion> UGameDataProcessing::ProcessQuizz(TArray<FString> Questions)
 			TempQuestion.anexedFile = "http://localhost/server/media/" + Questions[i];
 		}
 		if (i < Questions.Num() - 1) {
-			
+
 			i++;
 		}
 		else {
 			break;
 		}
-		TempQuestion.videoLink = Questions[i];
+		if (Questions[i] == "nothing") {
+			TempQuestion.videoLink = Questions[i];
+		}
+		else {
+			TempQuestion.videoLink = Questions[i];
+		}
 		if (i < Questions.Num() - 1) {
-			
 			i++;
 		}
 		else {
@@ -58,7 +61,7 @@ TArray<FQuestion> UGameDataProcessing::ProcessQuizz(TArray<FString> Questions)
 		}
 		TempQuestion.answerA1 = Questions[i];
 		if (i < Questions.Num() - 1) {
-			
+
 			i++;
 		}
 		else {
@@ -66,7 +69,7 @@ TArray<FQuestion> UGameDataProcessing::ProcessQuizz(TArray<FString> Questions)
 		}
 		TempQuestion.answerID1 = Questions[i];
 		if (i < Questions.Num() - 1) {
-			
+
 			i++;
 		}
 		else {
@@ -74,7 +77,7 @@ TArray<FQuestion> UGameDataProcessing::ProcessQuizz(TArray<FString> Questions)
 		}
 		TempQuestion.answer1 = Questions[i];
 		if (i < Questions.Num() - 1) {
-			
+
 			i++;
 		}
 		else {
@@ -82,7 +85,7 @@ TArray<FQuestion> UGameDataProcessing::ProcessQuizz(TArray<FString> Questions)
 		}
 		TempQuestion.feedback1 = Questions[i];
 		if (i < Questions.Num() - 1) {
-			
+
 			i++;
 		}
 		else {
@@ -90,46 +93,48 @@ TArray<FQuestion> UGameDataProcessing::ProcessQuizz(TArray<FString> Questions)
 		}
 		TempQuestion.nextQuestion1 = Questions[i];
 		if (i < Questions.Num() - 1) {
-			
+
 			i++;
 		}
 		else {
 			break;
 		}
-		TempQuestion.answerA2 = Questions[i];
-		if (i < Questions.Num() - 1) {
-			i++;
-		}
-		else {
-			break;
-		}
-		TempQuestion.answerID2 = Questions[i];
-		if (i < Questions.Num() - 1) {
-			i++;
-		}
-		else {
-			break;
-		}
-		TempQuestion.answer2 = Questions[i];
-		if (i < Questions.Num() - 1) {
-			i++;
-		}
-		else {
-			break;
-		}
-		TempQuestion.feedback2 = Questions[i];
-		if (i < Questions.Num() - 1) {
-			i++;
-		}
-		else {
-			break;
-		}
-		TempQuestion.nextQuestion2 = Questions[i];
-		if (i < Questions.Num() - 1) {
-			i++;
-		}
-		else {
-			break;
+		if (Questions[i] == "A2") {
+			TempQuestion.answerA2 = Questions[i];
+			if (i < Questions.Num() - 1) {
+				i++;
+			}
+			else {
+				break;
+			}
+			TempQuestion.answerID2 = Questions[i];
+			if (i < Questions.Num() - 1) {
+				i++;
+			}
+			else {
+				break;
+			}
+			TempQuestion.answer2 = Questions[i];
+			if (i < Questions.Num() - 1) {
+				i++;
+			}
+			else {
+				break;
+			}
+			TempQuestion.feedback2 = Questions[i];
+			if (i < Questions.Num() - 1) {
+				i++;
+			}
+			else {
+				break;
+			}
+			TempQuestion.nextQuestion2 = Questions[i];
+			if (i < Questions.Num() - 1) {
+				i++;
+			}
+			else {
+				break;
+			}
 		}
 		if (Questions[i] == "A3") {
 			TempQuestion.answerA3 = Questions[i];
@@ -173,10 +178,10 @@ TArray<FQuestion> UGameDataProcessing::ProcessQuizz(TArray<FString> Questions)
 	return Question;
 }
 
-void UGameDataProcessing::ProcessGame(TArray<FQuestion> ProcessedQuestions, FString QuestionID, FString Button1, FString NextQuestionID1, FString NextQuestionID2, FString Button2, FString NextQuestionID3, FString Button3, FString &Question, FString &AnexedFile, FString &videoLink, FString &AnswerID1, FString &Answer1, FString &Feedback1, FString &NextQuestion1, FString &AnswerID2, FString &Answer2, FString &Feedback2, FString &NextQuestion2, FString &AnswerID3, FString &Answer3, FString &Feedback3, FString &NextQuestion3)
+void UGameDataProcessing::ProcessGame(TArray<FQuestion> ProcessedQuestions, FString QuestionID, FString Button1, FString NextQuestionID1, FString NextQuestionID2, FString Button2, FString NextQuestionID3, FString Button3, FString& Question, FString& AnexedFile, FString& videoLink, FString& AnswerID1, FString& Answer1, FString& Feedback1, FString& NextQuestion1, FString& AnswerID2, FString& Answer2, FString& Feedback2, FString& NextQuestion2, FString& AnswerID3, FString& Answer3, FString& Feedback3, FString& NextQuestion3)
 {
 	FString NextQuestionToProcess;
-	if(Button1 == "b1"){
+	if (Button1 == "b1") {
 		NextQuestionToProcess = NextQuestion1;
 	}
 	else if (Button2 == "b2") {
@@ -193,7 +198,7 @@ void UGameDataProcessing::ProcessGame(TArray<FQuestion> ProcessedQuestions, FStr
 			Question = ProcessedQuestions[i].question;
 			AnexedFile = ProcessedQuestions[i].anexedFile;
 			videoLink = ProcessedQuestions[i].videoLink;
-			AnswerID1= ProcessedQuestions[i].answerID1;
+			AnswerID1 = ProcessedQuestions[i].answerID1;
 			Answer1 = ProcessedQuestions[i].answer1;
 			Feedback1 = ProcessedQuestions[i].feedback1;
 			NextQuestion1 = ProcessedQuestions[i].nextQuestion1;
@@ -211,17 +216,17 @@ void UGameDataProcessing::ProcessGame(TArray<FQuestion> ProcessedQuestions, FStr
 
 bool UGameDataProcessing::ProcessURL(FString URL)
 {
-	if (URL == "nothing"){
+	if (URL == "nothing") {
 		return true;
 	}
-		
+
 	return false;
 }
 
 bool UGameDataProcessing::ProcessEndGame(FString EndCondition)
 {
 	if (EndCondition == "0") {
-		return true;	
+		return true;
 	}
 	return false;
 }
@@ -236,9 +241,10 @@ TArray<FActivity> UGameDataProcessing::ProcessActivityString(FString ActivityStr
 {
 	TArray<FString> Out;
 	TArray<FActivity> ActivityList;
+	GLog->Log(ActivityString);
 	ActivityString.ParseIntoArray(Out, TEXT("*"), true);
-	
-	for (int32 i = 0; i < Out.Num()-1; i++) {
+
+	for (int32 i = 0; i < Out.Num() - 1; i++) {
 		TArray<FString> Temp;
 		Out[i].ParseIntoArray(Temp, TEXT(";"), true);
 		FActivity ActTemp;
@@ -262,9 +268,9 @@ TArray<FActivityResults> UGameDataProcessing::ProcessActivityResultsString(FStri
 
 	for (int32 i = 0; i < Out.Num() - 1; i++) {
 		TArray<FString> Temp;
-		Out[i].ParseIntoArray(Temp, TEXT(","), true);
+		Out[i].ParseIntoArray(Temp, TEXT("#"), true);
 		FActivityResults ActTemp;
-		ActTemp.iveniraID = Temp[0];
+		ActTemp.studentID = Temp[0];
 		ActTemp.userName = Temp[1];
 		ActTemp.question = Temp[2];
 		ActTemp.answer = Temp[3];

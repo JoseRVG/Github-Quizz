@@ -1,54 +1,32 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #include "UserRecewvied.h"
 
-FUserData UserData;
-void UUserRecewvied::ReceivedUserData(FUserData &User, FString &IveniraID)
+FDataUser UserData;
+void UUserRecewvied::ReceivedUserData(int32 ResponseAct, FString ResponseUser, FDataUser& User, FString& StudentID)
 {
+	UserData.studentID = ResponseUser;
+	UserData.activityID = FString::FromInt(ResponseAct);
 
-	TSharedRef<IHttpRequest> HttpRequest = FHttpModule::Get().CreateRequest();
-
-	HttpRequest->OnProcessRequestComplete().BindLambda([](FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful) {
-		if (bWasSuccessful)
-		{
-			TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
-
-			FString OutputString;
-
-			TArray<FString> Out;
-
-			TSharedRef<TJsonWriter<TCHAR>> JsonWriter = TJsonWriterFactory<>::Create(&OutputString);
-
-			FJsonSerializer::Serialize(JsonObject.ToSharedRef(), JsonWriter);
-
-			Response->GetContentAsString().ParseIntoArray(Out, TEXT(";"), true);
-			UserData.iveniraID = Out[0];
-			UserData.activityID = Out[1];
-		}
-		else
-		{
-
-		}
-		{
-			// Handle error here
-		}
-	});
-
-	HttpRequest->SetURL(FString("http://localhost/server/invenira.php"));
-
-	HttpRequest->SetVerb("GET");
-
-	HttpRequest->ProcessRequest();
-
-	double LastTime = FPlatformTime::Seconds();
-	while (EHttpRequestStatus::Processing == HttpRequest->GetStatus()) {
-		const double AppTime = FPlatformTime::Seconds();
-		FHttpModule::Get().GetHttpManager().Tick(AppTime - LastTime);
-		LastTime = AppTime;
-		//FPlatformProcess::Sleep(0.1f);
-	}
-
-	IveniraID = UserData.iveniraID;
+	StudentID = UserData.studentID;
 
 	User = UserData;
+}
+
+bool UUserRecewvied::SendGameCode(FString Code, TArray<FString> DBCode, FString& User, int32& ActivityID, FString& GameCode)
+{
+	
+	for (int32 i = 0; i < DBCode.Num()-1; i++) {
+		TArray<FString> Out;
+		DBCode[i].ParseIntoArray(Out, TEXT(";"), true);
+		if (Out[2] == Code) {
+			User = Out[0];
+			ActivityID = FCString::Atoi(*Out[1]);
+			GameCode = Out[2];
+			return true;
+		}
+		Out.Empty();
+	}
+	return false;
 }

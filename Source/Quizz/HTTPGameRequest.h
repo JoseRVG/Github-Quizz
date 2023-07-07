@@ -4,14 +4,7 @@
 
 #include "GenericPlatform/GenericPlatformProcess.h"
 #include "UserRecewvied.h"
-#include "Http.h"
-#include "HttpModule.h"
-#include "IHttpRequest.h"
 #include "Interfaces/IHttpRequest.h"
-#include "Dom/JsonObject.h"
-#include <sstream>
-#include "Serialization/JsonWriter.h"
-#include "Serialization/JsonSerializer.h"
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "HTTPGameRequest.generated.h"
@@ -21,14 +14,14 @@ struct FActivity
 {
 	GENERATED_USTRUCT_BODY()
 
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 id;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int32 id;
+		FString activityName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString activityName;
+		FString firstQuestionID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString firstQuestionID;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString json;
+		FString json;
 
 	UPROPERTY()
 		UObject* SafeObjectPointer;
@@ -39,8 +32,8 @@ struct FActivityResults
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		FString iveniraID;
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString studentID;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString userName;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -51,20 +44,12 @@ struct FActivityResults
 	UPROPERTY()
 		UObject* SafeObjectPointer;
 };
-/**
- * 
- */
+
 UCLASS()
 class QUIZZ_API UHTTPGameRequest : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
 	
 	UFUNCTION(BlueprintCallable, Category = "ToolTip")
-		static int32 GameSend(FString Name, FString Age, FUserData UserData);
-	UFUNCTION(BlueprintCallable, Category = "ToolTip")
-		static FString GameReciveAcitivity();
-	UFUNCTION(BlueprintCallable, Category = "ToolTip")
-		static FString GameAcitivityResults();
+		static int32 GameSend(FString Name, FString Age, FDataUser UserData, FString GameCode);
 };
-
-

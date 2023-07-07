@@ -13,7 +13,7 @@ struct FQuestion
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString id;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString question;
@@ -56,19 +56,17 @@ struct FQuestion
 		UObject* SafeObjectPointer;
 };
 
-/**
- * 
- */
 UCLASS()
 class QUIZZ_API UGameDataProcessing : public UBlueprintFunctionLibrary
 {
 	GENERATED_BODY()
+	
 	UFUNCTION(BlueprintCallable, Category = "ToolTip")
-		static void ProcessActivity(const TArray<FActivity> Activities, const int32 ActivityID, FString &Questions, FString &FirstQuestion, FString &ActivityName);
+		static void ProcessActivity(const TArray<FActivity> Activities, const int32 ActivityID, FString& Questions, FString& FirstQuestion, FString& ActivityName);
 	UFUNCTION(BlueprintCallable, Category = "ToolTip")
 		static TArray<FQuestion> ProcessQuizz(TArray<FString> Questions);
 	UFUNCTION(BlueprintCallable, Category = "ToolTip")
-		static void ProcessGame(TArray<FQuestion> ProcessedQuestions, FString QuestionID, FString Button1, FString NextQuestionID1, FString NextQuestionID2, FString Button2, FString NextQuestionID3, FString Button3, FString &Question, FString &AnexedFile, FString &videoLink, FString &AnswerID1, FString &Answer1, FString &Feedback1, FString &NextQuestion1, FString &AnswerID2, FString &Answer2, FString &Feedback2, FString &NextQuestion2, FString &AnswerID3, FString &Answer3, FString &Feedback3, FString &NextQuestion3);
+		static void ProcessGame(TArray<FQuestion> ProcessedQuestions, FString QuestionID, FString Button1, FString NextQuestionID1, FString NextQuestionID2, FString Button2, FString NextQuestionID3, FString Button3, FString& Question, FString& AnexedFile, FString& videoLink, FString& AnswerID1, FString& Answer1, FString& Feedback1, FString& NextQuestion1, FString& AnswerID2, FString& Answer2, FString& Feedback2, FString& NextQuestion2, FString& AnswerID3, FString& Answer3, FString& Feedback3, FString& NextQuestion3);
 	UFUNCTION(BlueprintCallable, Category = "ToolTip")
 		static bool ProcessURL(FString URL);
 	UFUNCTION(BlueprintCallable, Category = "ToolTip")
